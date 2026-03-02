@@ -1,16 +1,5 @@
 services:
 
-  rabbitmq:
-    image: rabbitmq:3-management
-    container_name: rabbitmq
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    environment:
-      RABBITMQ_USER: ${RABBITMQ_USER}
-      RABBITMQ_PASS: ${RABBITMQ_PASS}
-      BUCKET_NAME: ${BUCKET_NAME}
-
   api:
     build: .
     container_name: fastapi_app
@@ -19,13 +8,13 @@ services:
       - "8000:8000"
     volumes:
       - .:/app
-    depends_on:
-      - rabbitmq
+    environment:
+      BUCKET_NAME: ${BUCKET_NAME}
 
   celery:
     build: .
     container_name: celery_worker
     command: celery -A app.tasks worker --loglevel=info -Q image_queue
     restart: always
-    depends_on:
-      - rabbitmq
+    environment:
+      BUCKET_NAME: ${BUCKET_NAME}
