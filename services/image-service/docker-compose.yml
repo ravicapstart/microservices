@@ -7,9 +7,9 @@ services:
       - "5672:5672"
       - "15672:15672"
     environment:
-      - RABBITMQ_USER
-      - RABBITMQ_PASS
-      - BUCKET_NAME
+      RABBITMQ_USER: ${RABBITMQ_USER}
+      RABBITMQ_PASS: ${RABBITMQ_PASS}
+      BUCKET_NAME: ${BUCKET_NAME}
 
   api:
     build: .
