@@ -19,7 +19,6 @@ services:
   celery: 
     build: .
     container_name: celery_worker
-    command: ["./wait-for-rabbit.sh", "rabbitmq", "celery", "-A", "app.tasks", "worker", "-Q", "image_queue", "--loglevel=info"]
     restart: unless-stopped
     environment:
       AWS_BUCKET_NAME: ${AWS_BUCKET_NAME}
