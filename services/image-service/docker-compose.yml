@@ -16,7 +16,7 @@ services:
 
 
 
-  celery:
+  celery: 
     build: .
     container_name: celery_worker
     command: celery -A app.tasks worker --loglevel=info -Q image_queue
@@ -35,7 +35,10 @@ services:
     restart: always
     ports:
       - "5672:5672"
-      - "15672:15672"
+      - "15672:15672" 
+    environment:
+      RABBITMQ_DEFAULT_USER: akshit
+      RABBITMQ_DEFAULT_PASS: akshit123
 
 networks:
   microservices_network:
