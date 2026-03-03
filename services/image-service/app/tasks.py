@@ -14,7 +14,11 @@ celery = Celery(
     "worker",
     broker=os.getenv("BROKER_URL")
 )
-celery.conf.task_default_queue = "image_queue"
+
+celery.conf.task_routes = {
+    "app.tasks.resize_image": {"queue": "image_queue"},
+}
+
 
 s3 = boto3.client(
     "s3",
