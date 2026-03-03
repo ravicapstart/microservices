@@ -8,9 +8,9 @@ services:
       - "5672:5672"     # AMQP port
       - "15672:15672"   # Management UI
     restart: unless-stopped
-    environment:
-      RABBITMQ_USER: ${RABBITMQ_USER}
-      RABBITMQ_PASS: ${RABBITMQ_PASS}
+    environment: #For the official RabbitMQ management image, the correct variables are:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS}
     networks:
       - microservices_network
 
