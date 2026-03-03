@@ -4,6 +4,15 @@ from PIL import Image
 from io import BytesIO
 import uuid
 from celery import Celery
+import os
+import boto3
+from dotenv import load_dotenv
+
+
+
+load_dotenv()
+
+
 
 celery = Celery(
     "worker",
