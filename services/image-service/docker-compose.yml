@@ -12,6 +12,9 @@ services:
       RABBITMQ_PORT: 5672
       RABBITMQ_USER: ${RABBITMQ_USER}
       RABBITMQ_PASS: ${RABBITMQ_PASS}
+      BROKER_URL: ${BROKER_URL}
+
+
 
   celery:
     build: .
@@ -24,6 +27,7 @@ services:
       RABBITMQ_PORT: 5672
       RABBITMQ_USER: ${RABBITMQ_USER}
       RABBITMQ_PASS: ${RABBITMQ_PASS}
+      BROKER_URL: ${BROKER_URL}
 
   rabbitmq:
     image: rabbitmq:3-management
