@@ -20,7 +20,7 @@ services:
     restart: unless-stopped
     environment:
       AWS_BUCKET_NAME: ${AWS_BUCKET_NAME}
-      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_HOST: rabbitmq 
       RABBITMQ_PORT: 5672
       RABBITMQ_USER: ${RABBITMQ_USER}
       RABBITMQ_PASS: ${RABBITMQ_PASS}
