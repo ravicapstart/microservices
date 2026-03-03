@@ -13,21 +13,23 @@ services:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS}
       BROKER_URL: ${BROKER_URL}
-
-
+    depends_on:
+      - rabbitmq
 
   celery: 
     build: .
     container_name: celery_worker
-    command: celery -A app.tasks worker --loglevel=info -Q image_queue
+    command: ["./wait-for-rabbit.sh", "rabbitmq", "celery", "-A", "app.tasks", "worker", "-Q", "image_queue", "--loglevel=info"]
     restart: unless-stopped
     environment:
       AWS_BUCKET_NAME: ${AWS_BUCKET_NAME}
-      RABBITMQ_HOST: rabbitmq 
+      RABBITMQ_HOST: rabbitmq
       RABBITMQ_PORT: 5672
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS}
       BROKER_URL: ${BROKER_URL}
+    depends_on:
+      - rabbitmq
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -35,10 +37,11 @@ services:
     restart: always
     ports:
       - "5672:5672"
-      - "15672:15672" 
+      - "15672:15672"
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS} # Docker will automatically create these credentials:
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS}
+
 networks:
   microservices_network:
     external: true
