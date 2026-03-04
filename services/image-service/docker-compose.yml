@@ -6,13 +6,8 @@ services:
     ports:
       - "8000:8000"
     restart: unless-stopped
-    environment:
-      AWS_BUCKET_NAME: ${AWS_BUCKET_NAME}
-      RABBITMQ_HOST: rabbitmq
-      RABBITMQ_PORT: 5672
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS}
-      BROKER_URL: ${BROKER_URL}
+    env_file:
+      - .env
     depends_on:
       - rabbitmq
 
@@ -21,13 +16,8 @@ services:
     container_name: celery_worker
     restart: unless-stopped
     command: celery -A app.celery_app.celery_app worker --loglevel=info -Q image_queue
-    environment:
-      AWS_BUCKET_NAME: ${AWS_BUCKET_NAME}
-      RABBITMQ_HOST: rabbitmq
-      RABBITMQ_PORT: 5672
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS}
-      BROKER_URL: ${BROKER_URL}
+    env_file:
+      - .env
     depends_on:
       - rabbitmq
 
@@ -38,13 +28,8 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
-    environment:
-      AWS_BUCKET_NAME: ${AWS_BUCKET_NAME}
-      RABBITMQ_HOST: rabbitmq
-      RABBITMQ_PORT: 5672
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS}
-      BROKER_URL: ${BROKER_URL}
+    env_file:
+      - .env
 networks:
   microservices_network:
     external: true
