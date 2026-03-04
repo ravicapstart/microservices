@@ -12,7 +12,7 @@ celery_app = Celery(
 )
 
 celery_app.conf.task_routes = {
-    "app.tasks.resize_image": {"queue": "image_queue"},
+    "resize_image": {"queue": "image_queue"},
 }
 
 
