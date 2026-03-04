@@ -2,12 +2,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from celery import Celery
-from .config import RABBITMQ_URL
-
 
 celery_app = Celery(
     "image_service",
-    broker=RABBITMQ_URL,
+    broker=f"amqp://{os.getenv('RABBITMQ_USER')}:{os.getenv('RABBITMQ_PASS')}@{os.getenv('RABBITMQ_HOST')}:5672//",
     #backend=REDIS_URL
 )
 

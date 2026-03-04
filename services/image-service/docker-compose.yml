@@ -10,6 +10,7 @@ services:
       AWS_BUCKET_NAME: ${AWS_BUCKET_NAME}
       RABBITMQ_HOST: rabbitmq
       RABBITMQ_PORT: 5672
+      RABBITMQ_HOST: rabbitmq
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS}
       BROKER_URL: ${BROKER_URL}
@@ -39,6 +40,7 @@ services:
       - "5672:5672"
       - "15672:15672"
     environment:
+      RABBITMQ_HOST: rabbitmq
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS}
 
