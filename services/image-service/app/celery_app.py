@@ -15,4 +15,5 @@ celery_app.conf.task_routes = {
     "app.tasks.resize_image": {"queue": "image_queue"},
 }
 
+
 celery_app.autodiscover_tasks(["app"])

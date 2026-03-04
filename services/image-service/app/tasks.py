@@ -10,15 +10,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-celery = Celery(
-    "worker",
-    broker=os.getenv("BROKER_URL")
-)
-
-celery.conf.task_routes = {
-    "app.tasks.resize_image": {"queue": "image_queue"},
-}
-
 
 s3 = boto3.client(
     "s3",
@@ -34,7 +25,7 @@ SIZES = {
 }
 
 
-@celery.task(name="resize_image")
+@celery.task
 def resize_image(payload: dict):
 
     image_id = payload["image_id"]
