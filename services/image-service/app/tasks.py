@@ -8,7 +8,6 @@ import os
 import boto3
 from dotenv import load_dotenv
 import io
-import requests
 
 
 load_dotenv()
