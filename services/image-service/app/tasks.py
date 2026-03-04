@@ -25,7 +25,7 @@ SIZES = {
 }
 
 
-@celery.task
+@celery.task(name="resize_image")
 def resize_image(payload: dict):
 
     image_id = payload["image_id"]
